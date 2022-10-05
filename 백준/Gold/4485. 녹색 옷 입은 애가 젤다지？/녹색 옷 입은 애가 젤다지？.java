@@ -38,7 +38,7 @@ public class Main {
 		for (int[] a : dist) {
 			Arrays.fill(a, Integer.MAX_VALUE);
 		}
-		pq.offer(new Node(0, 0, 0));
+		pq.offer(new Node(0, 0, map[0][0]));
 		dist[0][0] = map[0][0];
 		while (!pq.isEmpty()) {
 			Node curNode = pq.poll();
@@ -53,8 +53,8 @@ public class Main {
 				int nr = curNode.r + dr[i];
 				int nc = curNode.c + dc[i];
 				if (nr >= 0 && nr < N && nc >= 0 && nc < N)
-					if (dist[nr][nc] > map[nr][nc] + dist[curNode.r][curNode.c]) {
-						dist[nr][nc] = map[nr][nc] + dist[curNode.r][curNode.c];
+					if (dist[nr][nc] > map[nr][nc] + curNode.cost) {
+						dist[nr][nc] = map[nr][nc] + curNode.cost;
 						pq.offer(new Node(nr, nc, dist[nr][nc]));
 					}
 			}
