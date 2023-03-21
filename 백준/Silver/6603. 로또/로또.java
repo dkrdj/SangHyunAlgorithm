@@ -32,7 +32,7 @@ public class Main {
             sb.append("\n");
             return;
         }
-        for (int i = sidx; i < arr.length; i++) {
+        for (int i = sidx; i < arr.length && arr.length - i + idx >= 6; i++) {
             res[idx] = arr[i];
             comb(arr, idx + 1, i + 1, res);
         }
