@@ -18,17 +18,13 @@ public class Main {
             big = Math.max(big, Integer.parseInt(str));
             list.add(str);
         }
-        list.sort(((o1, o2) -> {
-            String o1res = o1 + o2;
-            String o2res = o2 + o1;
-            return o2res.compareTo(o1res);
-        }));
+        list.sort((o1, o2) -> (o2 + o1).compareTo(o1 + o2));
         StringBuilder sb = new StringBuilder();
         boolean flag = false;
+        String strBig = String.valueOf(big);
         for (String str : list) {
-            int num = Integer.parseInt(str);
-            sb.append(num);
-            if (!flag && num == big) {
+            sb.append(str);
+            if (!flag && str.equals(strBig)) {
                 for (int i = 0; i < N - K; i++) {
                     sb.append(big);
                 }
