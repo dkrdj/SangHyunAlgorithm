@@ -31,14 +31,11 @@ public class Main {
                 selectedCountry.silver = silver;
                 selectedCountry.bronze = bronze;
             }
-            pq.offer(new Country(gold, silver, bronze, seq));
+            pq.offer(new Country(gold, silver, bronze));
         }
         int answer = 1;
-        for (Country country : pq) {
-            if (country.seq == K) {
-                System.out.println(answer);
-                return;
-            }
+        while (!pq.isEmpty()) {
+            Country country = pq.poll();
             if (country.gold == selectedCountry.gold
                     && country.silver == selectedCountry.silver
                     && country.bronze == selectedCountry.bronze) {
@@ -54,15 +51,13 @@ class Country {
     int gold;
     int silver;
     int bronze;
-    int seq;
 
     public Country() {
     }
 
-    public Country(int gold, int silver, int bronze, int seq) {
+    public Country(int gold, int silver, int bronze) {
         this.gold = gold;
         this.silver = silver;
         this.bronze = bronze;
-        this.seq = seq;
     }
 }
