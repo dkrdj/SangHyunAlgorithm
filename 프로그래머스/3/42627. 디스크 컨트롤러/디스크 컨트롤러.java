@@ -2,32 +2,31 @@ import java.util.*;
 
 class Solution {
     public int solution(int[][] jobs) {
-        Arrays.sort(jobs, new Comparator<int[]>(){
-            @Override
-            public int compare(int[] o1, int[] o2){
-                return o1[0]-o2[0];
-            }
-        });
-        PriorityQueue<int[]> pq = new PriorityQueue<>((o1,o2)->o1[1]-o2[1]);
-        int time = 0;
-        int idx = 0;
         int answer = 0;
-        int cnt = 0;
-        while(cnt != jobs.length){
-            while(jobs.length > idx && jobs[idx][0] <= time){
-                pq.offer(jobs[idx]);
-                idx++;
+        
+        PriorityQueue<int[]> pq = new PriorityQueue<>((o1,o2)->o1[1]-o2[1]);
+        
+        Arrays.sort(jobs, (o1,o2)->o1[0]-o2[0]);
+        boolean[] isWork = new boolean[1002000];
+        for(int i = 0, j = 0; i <= 1000000; i++){
+            while(j < jobs.length && jobs[j][0] <= i){
+                pq.offer(jobs[j]);
+                answer+= jobs[j][1];
+                j++;
             }
-            if(pq.isEmpty()){
-                time = jobs[idx][0];
-                continue;
+            // if(!pq.isEmpty()){
+            // System.out.println(i);
+            // System.out.println(pq);
+            // System.out.println("----");
+            // }
+            if(!isWork[i] && !pq.isEmpty()){
+                int[] cur = pq.poll();
+                for(int k = i; k < i + cur[1]; k++)
+                    isWork[k] = true;
             }
-            int[] job = pq.poll();
-            
-            time += job[1];
-            answer += time - job[0];
-            cnt++;
+            answer += pq.size();
         }
-        return answer / jobs.length;
+        
+        return answer/jobs.length;
     }
 }
